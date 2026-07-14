@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pescadería Cárdenas - Del mar a tu mesa, frescura garantizada</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter para alta legibilidad comercial) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Animaciones para microinteracciones */
+        .cart-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-hover {
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- CABECERA / HEADER SEMÁNTICO -->
+    <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo / Nombre -->
+            <a href="#" class="flex items-center space-x-2">
+                <svg class="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9.004 9.004 0 005.908-2.235M3 12h1.382a1 1 0 00.9-.553l1.382-2.764a1 1 0 011.8 0l1.382 2.764a1 1 0 00.9.553H15M3 12a9 9 0 0115-6.708M12 3v3m0 12v3m-9-9a9 9 0 0015 6.708M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span class="font-extrabold text-xl tracking-tight uppercase">Pescadería <span class="text-sky-400">Cárdenas</span></span>
+            </a>
+
+            <!-- Info / Ubicación rápida (Desktop) -->
+            <div class="hidden md:flex items-center space-x-1 text-xs text-slate-400">
+                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>5to Anillo, Av. 2 de Agosto</span>
+            </div>
+
+            <!-- Navegación & Carrito -->
+            <div class="flex items-center space-x-6">
+                <a href="#catalogo" class="hidden sm:inline-block text-sm font-medium hover:text-sky-400 transition-colors">Productos</a>
+                <!-- Botón de Carrito con Contador Dinámico -->
+                <button onclick="toggleCart()" class="relative p-2 text-white hover:text-sky-400 transition-colors focus:outline-none" aria-label="Ver carrito">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <!-- Badge Contador -->
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center transform scale-0 transition-transform duration-200">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- SECCIÓN HERO (ATENCIÓN - MODELO AIDA) -->
+        <section class="relative bg-slate-900 text-white py-20 lg:py-32 overflow-hidden">
+            <!-- Imagen de fondo optimizada con superposición oscura -->
+            <div class="absolute inset-0 z-0 opacity-40">
+                <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&q=80&w=1600" alt="Mariscos y pescados frescos" class="w-full h-full object-cover">
+            </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center lg:text-left">
+                <div class="lg:w-2/3">
+                    <span class="inline-block bg-sky-500/20 text-sky-300 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider mb-6">Frescura Máxima Garantizada</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                        Del mar a tu hogar con la calidad que mereces
+                    </h1>
+                    <p class="text-lg sm:text-xl text-slate-300 mb-8 max-w-xl">
+                        En <strong class="text-white">Pescadería Cárdenas</strong> seleccionamos los mejores ejemplares diariamente para garantizar el sabor y la nutrición en tu mesa. ¡Realiza tu pedido hoy y recíbelo en tu puerta!
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <a href="#catalogo" class="btn-hover bg-sky-500 hover:bg-sky-600 text-white font-bold px-8 py-4 rounded-xl text-center shadow-lg">
+                            Ver Productos de Hoy
+                        </a>
+                        <a href="https://api.whatsapp.com/send?phone=59172305619&text=%C2%A1Hola!%20Quisiera%20hacer%20una%20consulta%20sobre%20los%20pescados%20frescos%20del%20d%C3%ADa." target="_blank" rel="noopener noreferrer" class="btn-hover bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-8 py-4 rounded-xl text-center border border-slate-700">
+                            Consultar Especiales
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE VENTAJAS / GENERACIÓN DE CONFIANZA -->
+        <section class="py-12 bg-white border-b border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Item 1 -->
+                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                        <div class="p-3 bg-sky-100 text-sky-600 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">100% Fresco</h3>
+                            <p class="text-sm text-slate-500">Cadena de frío estricta para preservar las propiedades intactas.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                        <div class="p-3 bg-sky-100 text-sky-600 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">Entrega Rápida</h3>
+                            <p class="text-sm text-slate-500">Servicio de delivery eficiente en Santa Cruz, directo a tu cocina.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                        <div class="p-3 bg-sky-100 text-sky-600 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">Pago Seguro</h3>
+                            <p class="text-sm text-slate-500">Paga al recibir tu pedido (Efectivo o transferencia QR).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE PRODUCTOS / CATÁLOGO (CONVERSIÓN) -->
+        <section id="catalogo" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Catálogo de Productos de Hoy</h2>
+                <div class="w-24 h-1 bg-sky-500 mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-500 mt-4 text-base sm:text-lg">Selecciona la cantidad que necesitas y agrégala a tu pedido. El desglose se calculará automáticamente.</p>
+            </div>
+
+            <!-- Grilla de Productos -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
+                <!-- Los productos se inyectan dinámicamente mediante JS para permitir fácil actualización -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE PRUEBA SOCIAL / TESTIMONIOS -->
+        <section class="bg-slate-100 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Lo que dicen nuestros clientes</h2>
+                    <p class="text-slate-500 mt-2 text-sm sm:text-base">La frescura y el buen servicio nos respaldan.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <div class="flex text-amber-400 mb-3">★★★★★</div>
+                        <p class="text-slate-600 text-sm mb-4">"El filete de corvina llegó sumamente fresco, bien empacado y con excelente temperatura. La atención por WhatsApp fue rapidísima."</p>
+                        <h4 class="font-bold text-slate-900 text-sm">- Carla Montenegro</h4>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <div class="flex text-amber-400 mb-3">★★★★★</div>
+                        <p class="text-slate-600 text-sm mb-4">"Los camarones gigantes son increíbles, limpios y de un tamaño espectacular para el precio. Excelente opción en Santa Cruz."</p>
+                        <h4 class="font-bold text-slate-900 text-sm">- Jorge Hurtado</h4>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <div class="flex text-amber-400 mb-3">★★★★★</div>
+                        <p class="text-slate-600 text-sm mb-4">"Excelente atención. Me gusta que puedes pagar por transferencia QR al momento de la entrega en casa. Pescado de primera."</p>
+                        <h4 class="font-bold text-slate-900 text-sm">- Mariana S.</h4>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <div class="flex text-amber-400 mb-3">★★★★★</div>
+                        <p class="text-slate-600 text-sm mb-4">"Recomiendo el mix de mariscos. Preparamos una paella familiar increíble. Se nota la diferencia de frescura de inmediato."</p>
+                        <h4 class="font-bold text-slate-900 text-sm">- Ing. Fernando R.</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA SEMÁNTICO -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4 uppercase tracking-wider">Pescadería Cárdenas</h4>
+                <p class="text-sm leading-relaxed mb-4">
+                    Ofreciendo los mejores alimentos de mar y de río para que prepares platillos nutritivos y deliciosos en tu hogar con la frescura que mereces.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4 uppercase tracking-wider">Ubicación y Contacto</h4>
+                <p class="text-sm leading-relaxed mb-2 flex items-start">
+                    <svg class="w-5 h-5 text-sky-400 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span>Calle Wilson Ruiz N°18, 5to anillo Av. 2 de agosto<br>Santa Cruz, Bolivia.</span>
+                </p>
+                <p class="text-sm leading-relaxed flex items-center">
+                    <svg class="w-5 h-5 text-sky-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    <span>+591 72305619</span>
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4 uppercase tracking-wider">Horario de Atención</h4>
+                <p class="text-sm leading-relaxed">
+                    Lunes a Sábado: 07:00 AM - 04:00 PM<br>
+                    Domingos: 07:00 AM - 01:00 PM<br>
+                    <span class="text-sky-400 font-semibold mt-2 block">¡Pedidos online las 24 horas!</span>
+                </p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-slate-800 text-center text-xs">
+            <p>&copy; 2026 Pescadería Cárdenas. Todos los derechos reservados. Diseñado para Máxima Conversión.</p>
+        </div>
+    </footer>
+
+    <!-- CARRITO LATERAL (DRAWER / SLIDE-OVER MODAL) -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none hidden">
+        <!-- Fondo oscuro translúcido -->
+        <div id="cart-backdrop" onclick="toggleCart()" class="absolute inset-0 bg-slate-900 bg-opacity-60 opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
+        
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md pointer-events-auto">
+                <div class="h-full flex flex-col bg-white shadow-2xl overflow-y-scroll cart-transition transform translate-x-full" id="cart-panel">
+                    <!-- Cabecera del Carrito -->
+                    <div class="px-6 py-6 bg-slate-900 text-white flex items-center justify-between">
+                        <h2 class="text-lg font-bold tracking-wide uppercase">Tu Pedido</h2>
+                        <button onclick="toggleCart()" class="text-slate-400 hover:text-white transition-colors" aria-label="Cerrar Carrito">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Contenido Principal / Lista de ítems -->
+                    <div class="flex-1 py-6 px-6 overflow-y-auto" id="cart-items-container">
+                        <!-- Se renderizará dinámicamente o mostrará un estado vacío -->
+                    </div>
+
+                    <!-- Resumen de Costos y Acciones de Pago (UX/CRO Fijo en la Base) -->
+                    <div class="border-t border-slate-100 py-6 px-6 bg-slate-50">
+                        <div class="flex justify-between text-base font-medium text-slate-900 mb-4">
+                            <p>Subtotal del pedido</p>
+                            <p id="cart-total" class="font-bold text-lg text-sky-700">Bs. 0.00</p>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-6 flex items-center">
+                            <svg class="w-4 h-4 text-emerald-500 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            El monto final y la entrega se coordinarán directamente por WhatsApp.
+                        </p>
+                        <div class="space-y-3">
+                            <button onclick="sendOrder()" class="w-full flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5" id="checkout-btn">
+                                <svg class="w-6 h-6 mr-2 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.588 1.976 14.11 1.01 11.5 1.01c-5.436 0-9.863 4.37-9.867 9.8-.001 1.976.517 3.903 1.5 5.619l-.974 3.556 3.65-.958zm13.151-6.17c-.318-.159-1.885-.929-2.179-1.035-.294-.107-.508-.159-.723.159-.214.32-.831 1.036-1.018 1.248-.188.213-.375.239-.693.079-.319-.159-1.343-.491-2.557-1.571-.945-.841-1.583-1.88-1.768-2.198-.185-.319-.02-.491.14-.649.144-.143.318-.372.477-.558.159-.186.213-.319.319-.531.107-.213.053-.399-.027-.558-.08-.16-.723-1.727-.991-2.364-.261-.624-.526-.539-.723-.549-.187-.01-.401-.01-.615-.01s-.562.08-.855.398c-.294.319-1.123 1.09-1.123 2.657 0 1.567 1.15 3.082 1.31 3.295.16.213 2.263 3.424 5.481 4.795.765.325 1.363.52 1.828.667.768.242 1.467.208 2.019.126.615-.091 1.885-.765 2.152-1.466.267-.701.267-1.301.187-1.426-.08-.125-.294-.209-.613-.369z"/></svg>
+                                Enviar Pedido por WhatsApp
+                            </button>
+                            <button onclick="toggleCart()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-3.5 px-6 rounded-xl transition-colors text-sm">
+                                Seguir comprando
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP (ONLINE COMPATIBLE CON GITHUB PAGES) -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end">
+        <!-- Notificación dinámica simulando estar en línea -->
+        <div class="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md border border-slate-100 mb-2 animate-bounce flex items-center space-x-1">
+            <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full inline-block animate-pulse"></span>
+            <span>¡Hola! Estamos en línea</span>
+        </div>
+        <!-- Enlace interactivo con mensaje comercialmente pre-llenado -->
+        <a href="https://api.whatsapp.com/send?phone=59172305619&text=%C2%A1Hola!%20Estoy%20visitando%20su%20tienda%20online%20y%20me%20gustar%C3%ADa%20hacerles%20una%20consulta." target="_blank" rel="noopener noreferrer" class="bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl transition-transform hover:scale-110 flex items-center justify-center duration-300 group" aria-label="Contacto WhatsApp Directo">
+            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.588 1.976 14.11 1.01 11.5 1.01c-5.436 0-9.863 4.37-9.867 9.8-.001 1.976.517 3.903 1.5 5.619l-.974 3.556 3.65-.958zm13.151-6.17c-.318-.159-1.885-.929-2.179-1.035-.294-.107-.508-.159-.723.159-.214.32-.831 1.036-1.018 1.248-.188.213-.375.239-.693.079-.319-.159-1.343-.491-2.557-1.571-.945-.841-1.583-1.88-1.768-2.198-.185-.319-.02-.491.14-.649.144-.143.318-.372.477-.558.159-.186.213-.319.319-.531.107-.213.053-.399-.027-.558-.08-.16-.723-1.727-.991-2.364-.261-.624-.526-.539-.723-.549-.187-.01-.401-.01-.615-.01s-.562.08-.855.398c-.294.319-1.123 1.09-1.123 2.657 0 1.567 1.15 3.082 1.31 3.295.16.213 2.263 3.424 5.481 4.795.765.325 1.363.52 1.828.667.768.242 1.467.208 2.019.126.615-.091 1.885-.765 2.152-1.466.267-.701.267-1.301.187-1.426-.08-.125-.294-.209-.613-.369z"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- JAVASCRIPT VANILLA DE LOGICA COMERCIAL (STORE STATE & CART RENDERING) -->
+    <script>
+        // Catálogo de Productos estático de alta conversión
+        const PRODUCTS = [
+            {
+                id: 1,
+                name: "Filete de Corvina Fresca (Kg)",
+                price: 65.00,
+                description: "Delicioso filete de corvina del día, sin espinas, ideal para ceviche o plancha.",
+                image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 2,
+                name: "Camarones Gigantes Pelados (Kg)",
+                price: 90.00,
+                description: "Camarón premium limpio y desvenado, ideal para pastas, ensaladas o al ajillo.",
+                image: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 3,
+                name: "Salmón Rosado Premium (Kg)",
+                price: 130.00,
+                description: "Importación selecta con los más altos estándares. Rico en Omega-3 y grasas saludables.",
+                image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 4,
+                name: "Mix de Mariscos Especial (Kg)",
+                price: 75.00,
+                description: "Mezcla perfecta de calamar, camarón, pulpo y mejillones para preparar la mejor paella.",
+                image: "https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 5,
+                name: "Trucha Arcoíris Limpia (Kg)",
+                price: 55.00,
+                description: "Trucha fresca entera eviscerada de agua cristalina, lista para hornear o freír.",
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=600"
+            }
+        ];
+
+        // Estado Global de la App con Persistencia (LocalStorage - Standard HTML5 API)
+        let cart = JSON.parse(localStorage.getItem('pescaderia_cardenas_cart')) || [];
+
+        // Inicialización de la Interfaz
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+        });
+
+        // Renderizado Dinámico del Catálogo de Productos
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = PRODUCTS.map(product => `
+                <article class="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100 overflow-hidden flex flex-col">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-900 mb-1">${product.name}</h3>
+                            <p class="text-xs text-slate-400 mb-3 flex items-center">
+                                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span> Disponible hoy
+                            </p>
+                            <p class="text-slate-500 text-sm mb-4 line-clamp-3">${product.description}</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-slate-500 text-xs">Precio por Kg</span>
+                                <span class="text-2xl font-black text-slate-900">Bs. ${product.price.toFixed(2)}</span>
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="btn-hover w-full bg-sky-900 hover:bg-sky-800 text-white font-bold py-3 px-4 rounded-xl text-sm flex items-center justify-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                <span>Agregar al Pedido</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Acciones del Carrito (Vanilla JS State Mutation)
+        function addToCart(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            const cartItem = cart.find(item => item.id === productId);
+
+            if (cartItem) {
+                cartItem.qty += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    qty: 1
+                });
+            }
+
+            saveCart();
+            updateCartUI();
+            
+            // Acción Interactiva de Apertura Automática (UX/CRO Directo)
+            openCart();
+        }
+
+        function updateQty(productId, amount) {
+            const cartItem = cart.find(item => item.id === productId);
+            if (!cartItem) return;
+
+            cartItem.qty += amount;
+            if (cartItem.qty <= 0) {
+                cart = cart.filter(item => item.id !== productId);
+            }
+
+            saveCart();
+            updateCartUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('pescaderia_cardenas_cart', JSON.stringify(cart));
+        }
+
+        // Renderizado del UI del Carrito y Cálculo de Totales
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalElement = document.getElementById('cart-total');
+            const badge = document.getElementById('cart-badge');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            // Actualizar Badge
+            const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+            if (totalQty > 0) {
+                badge.textContent = totalQty;
+                badge.classList.remove('scale-0');
+                badge.classList.add('scale-100');
+            } else {
+                badge.classList.remove('scale-100');
+                badge.classList.add('scale-0');
+            }
+
+            // Calcular Total de la Compra
+            const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            totalElement.textContent = `Bs. ${totalPrice.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center py-20">
+                        <div class="p-4 bg-slate-50 rounded-full text-slate-300 mb-4">
+                            <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                            </svg>
+                        </div>
+                        <p class="text-slate-900 font-bold mb-1">Tu carrito está vacío</p>
+                        <p class="text-sm text-slate-400">Agrega productos frescos de nuestro catálogo para iniciar tu pedido.</p>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+                checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                checkoutBtn.disabled = false;
+                checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                container.innerHTML = cart.map(item => `
+                    <div class="flex items-center space-x-4 py-4 border-b border-slate-100 last:border-0">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-slate-900 text-sm">${item.name}</h4>
+                            <p class="text-xs text-slate-400 mb-2">Bs. ${item.price.toFixed(2)} / Kg</p>
+                            <!-- Controles de Cantidad Interactivos -->
+                            <div class="flex items-center space-x-2">
+                                <button onclick="updateQty(${item.id}, -1)" class="w-6 h-6 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-200 transition-colors text-slate-600 font-bold text-sm">-</button>
+                                <span class="text-sm font-semibold w-6 text-center text-slate-800">${item.qty}</span>
+                                <button onclick="updateQty(${item.id}, 1)" class="w-6 h-6 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-200 transition-colors text-slate-600 font-bold text-sm">+</button>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-slate-900 text-sm">Bs. ${(item.price * item.qty).toFixed(2)}</p>
+                            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-500 transition-colors mt-1" aria-label="Eliminar del Carrito">
+                                <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Control de Animaciones y Toggles para el Carrito Drawer
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            if (drawer.classList.contains('hidden')) {
+                openCart();
+            } else {
+                closeCart();
+            }
+        }
+
+        function openCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            const panel = document.getElementById('cart-panel');
+
+            drawer.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                backdrop.classList.add('opacity-100');
+                panel.classList.remove('translate-x-full');
+                panel.classList.add('translate-x-0');
+            }, 10);
+        }
+
+        function closeCart() {
+            const backdrop = document.getElementById('cart-backdrop');
+            const panel = document.getElementById('cart-panel');
+            const drawer = document.getElementById('cart-drawer');
+
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            panel.classList.remove('translate-x-0');
+            panel.classList.add('translate-x-full');
+
+            setTimeout(() => {
+                drawer.classList.add('hidden');
+            }, 300);
+        }
+
+        // FORMATEO EXCEPCIONAL DE PEDIDO POR WHATSAPP (CRO Y MENSAJE DE ALTA CONVERSIÓN)
+        function sendOrder() {
+            if (cart.length === 0) return;
+
+            const total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            
+            // Construcción del Mensaje Estructurado con Estilo Tabular Limpio
+            let message = `🐟 *PEDIDO DE PESCADERÍA CÁRDENAS* 🐟\n`;
+            message += `====================================\n`;
+            message += `¡Hola! Quisiera realizar el siguiente pedido a domicilio:\n\n`;
+
+            cart.forEach(item => {
+                const subtotal = item.price * item.qty;
+                message += `• ${item.qty} Kg x *${item.name}*\n`;
+                message += `  Precio/Kg: Bs. ${item.price.toFixed(2)} | Subtotal: Bs. ${subtotal.toFixed(2)}\n\n`;
+            });
+
+            message += `====================================\n`;
+            message += `*Total a Pagar:* Bs. ${total.toFixed(2)}\n\n`;
+            message += `📍 *Ubicación del Negocio:* Calle Wilson Ruiz N°18 5to anillo av. 2 de agosto\n`;
+            message += `🏠 *Dirección de Entrega:* _(Por favor, ingresa aquí tu dirección de envío o comparte tu ubicación)_ \n\n`;
+            message += `¡Muchas gracias! Espero su confirmación.`;
+
+            // Codificar Mensaje para URL
+            const encodedMessage = encodeURIComponent(message);
+            const phoneNumber = "59172305619"; // Número de Pescadería Cárdenas sin signo +
+
+            // Apertura de la API Web de WhatsApp
+            window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
+        }
+    </script>
+</body>
+</html>
